@@ -9,7 +9,7 @@ fi
 dnf config-manager --setopt=installonly_limit=2 --save
 
 # Install useful packages
-dnf install deja-dup tilix dconf dconf-editor gnome-tweaks gnome-extensions-app gnome-shell-extension-appindicator zsh fish make automake gcc gcc-c++ kernel-devel cmake meson vim nano mumble telegram-desktop rstudio julia
+dnf install deja-dup tilix dconf dconf-editor gnome-tweaks gnome-extensions-app gnome-shell-extension-appindicator zsh fish make automake gcc gcc-c++ kernel-devel cmake meson vim nano mumble telegram-desktop rstudio julia -y
 
 # RPM Fusion for fedora 33 for example
 wget https://mirrors.rpmfusion.org/free/fedora/rpmfusion-free-release-33.noarch.rpm && rpm -i rpmfusion-free-release-33.noarch.rpm
@@ -23,7 +23,7 @@ flatpak remote-add --if-not-exists flathub https://flathub.org/repo/flathub.flat
 rpm --import https://packages.microsoft.com/keys/microsoft.asc
 sh -c 'echo -e "[code]\nname=Visual Studio Code\nbaseurl=https://packages.microsoft.com/yumrepos/vscode\nenabled=1\ngpgcheck=1\ngpgkey=https://packages.microsoft.com/keys/microsoft.asc" > /etc/yum.repos.d/vscode.repo'
 dnf check-update
-dnf install code code-insiders
+dnf install code code-insiders -y
 
 # NordVPN, don't judge morty.
 wget https://repo.nordvpn.com/yum/nordvpn/centos/noarch/Packages/n/nordvpn-release-1.0.0-1.noarch.rpm && rpm -i nordvpn-release-1.0.0-1.noarch.rpm
@@ -49,3 +49,4 @@ curl --proto '=https' --tlsv1.2 -sSf https://sh.rustup.rs | sh
 # Remember to do this :
 echo "Don't forget to setup : Online Accounts and other settings (screen refresh rate, Dark theme, languages, mouse accel and sens)"
 echo "AND TO RESTORE FROM A BACKUP !"
+echo "(and to create a root password with : 'sudo su' and then 'passwd')"
