@@ -1,7 +1,8 @@
 - hosts: localhost
   tasks:
-    - name: DNF keeps only 2 versions of the same package
+    - name: DNF keeps only 2 versions of the same package 
       become: yes
+      warn: false
       command: dnf config-manager --setopt=installonly_limit=2 --save
     - name: Install Backups
       become: yes
@@ -38,4 +39,55 @@
       package:
         name: fish
         state: present
-
+    - name: Install make
+      become: yes
+      package:
+        name: make
+        state: present
+    - name: Install automake
+      become: yes
+      package:
+        name: automake
+        state: present
+    - name: Install GCC C++ compiler
+      become: yes
+      package:
+        name: gcc-c++
+        state: present
+    - name: Install Kernel Headers
+      become: yes
+      package:
+        name: kernel-devel
+        state: present
+    - name: Install CMake
+      become: yes
+      package:
+        name: cmake
+        state: present
+    - name: Install Meson
+      become: yes
+      package:
+        name: meson
+        state: present
+    - name: Install Vim
+      become: yes
+      package:
+        name: vim
+        state: present
+    - name: Install Mumble
+      become: yes
+      package:
+        name: mumble
+        state: present
+    - name: Install Telegram
+      become: yes
+      package:
+        name: telegram-desktop
+        state: present
+    - name: Install Julia lang
+      become: yes
+      package:
+        name: julia
+        state: present
+    - name: Install RPM Fusion Free 
+      yum: https://mirrors.rpmfusion.org/free/fedora/rpmfusion-free-release-{{ ansible_distribution_version }}.noarch.rpm

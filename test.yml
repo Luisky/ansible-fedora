@@ -1,0 +1,4 @@
+- hosts: localhost
+  tasks:
+    - name: Install RPM Fusion Free 
+      yum: https://mirrors.rpmfusion.org/free/fedora/rpmfusion-free-release-{{ ansible_distribution_version }}.noarch.rpm
