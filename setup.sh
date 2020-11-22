@@ -1,7 +1,7 @@
 #!/bin/bash
 # Use this script as root
 if [ "$EUID" -ne 0 ]
-  then echo "Please run as root"
+  then echo "Please run with sudo"
   exit
 fi
 
@@ -9,7 +9,10 @@ fi
 dnf config-manager --setopt=installonly_limit=2 --save
 
 # Install useful packages
-dnf install deja-dup tilix dconf dconf-editor gnome-tweaks gnome-extensions-app gnome-shell-extension-appindicator zsh fish make automake gcc gcc-c++ kernel-devel cmake meson vim nano mumble telegram-desktop rstudio julia -y
+dnf install deja-dup tilix dconf-editor gnome-tweaks gnome-extensions-app gnome-shell-extension-appindicator zsh fish make automake gcc gcc-c++ kernel-devel cmake meson vim mumble telegram-desktop julia texlive-scheme-full -y
+
+# For zsh
+wget -O .zshrc https://git.grml.org/f/grml-etc-core/etc/zsh/zshrc
 
 # RPM Fusion for fedora 33 for example
 wget https://mirrors.rpmfusion.org/free/fedora/rpmfusion-free-release-33.noarch.rpm && rpm -i rpmfusion-free-release-33.noarch.rpm

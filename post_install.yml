@@ -1,0 +1,41 @@
+- hosts: localhost
+  tasks:
+    - name: DNF keeps only 2 versions of the same package
+      become: yes
+      command: dnf config-manager --setopt=installonly_limit=2 --save
+    - name: Install Backups
+      become: yes
+      package:
+        name: deja-dup
+        state: present
+    - name: Install Tilix
+      become: yes
+      package:
+        name: tilix
+        state: present
+    - name: Install Tweaks (Gnome)
+      become: yes
+      package:
+        name: gnome-tweaks
+        state: present
+    - name: Install Extension App (Gnome)
+      become: yes
+      package:
+        name: gnome-extensions-app
+        state: present
+    - name: Install Appindicator extension (Gnome Shell)
+      become: yes
+      package:
+        name: gnome-shell-extension-appindicator
+        state: present
+    - name: Install zsh
+      become: yes
+      package:
+        name: zsh
+        state: present
+    - name: Install fish
+      become: yes
+      package:
+        name: fish
+        state: present
+
