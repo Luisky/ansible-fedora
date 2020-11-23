@@ -7,12 +7,12 @@
     - name: install the RPM Fusion free repo
       become: yes
       dnf:
-        name: "http://download1.rpmfusion.org/free/fedora/rpmfusion-free-release-{{ ansible_distribution_major_version }}.noarch.rpm"
+        name: "https://mirrors.rpmfusion.org/free/fedora/rpmfusion-free-release-{{ ansible_distribution_major_version }}.noarch.rpm"
         state: present
       when: ansible_distribution == 'Fedora'
     - name: install the RPM Fusion nonfree repo
       become: yes
       dnf:
-        name: "http://download1.rpmfusion.org/free/fedora/rpmfusion-nonfree-release-{{ ansible_distribution_major_version }}.noarch.rpm"
+        name: "https://mirrors.rpmfusion.org/nonfree/fedora/rpmfusion-nonfree-release-{{ ansible_distribution_major_version }}.noarch.rpm"
         state: present
       when: ansible_distribution == 'Fedora'
