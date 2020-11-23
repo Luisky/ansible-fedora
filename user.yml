@@ -1,5 +1,9 @@
 - hosts: localhost
   tasks:
+    - name: Install psutil
+      become: yes
+      package:
+        name: python3-psutil
     - name: Configure available keyboard layouts in Gnome
       dconf:
         key: "/org/gnome/desktop/input-sources/sources"
