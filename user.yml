@@ -9,3 +9,24 @@
         key: "/org/gnome/desktop/input-sources/sources"
         value: "[('xkb', 'us'), ('xkb', 'fr')]"
         state: present
+    - name: Configure Super-Tab for switching between applications
+      dconf:
+        key: "/org/gnome/desktop/wm/keybindings/switch-applications"
+        value: "['<Super>Tab']"
+        state: present
+    - name: Configure Shift-Super-Tab for switching back between applications
+      dconf:
+        key: "/org/gnome/desktop/wm/keybindings/switch-applications-backward"
+        value: "['<Shift><Super>Tab']"
+        state: present
+    - name: Configure Alt-Tab for switching between windows
+      dconf:
+        key: "/org/gnome/desktop/wm/keybindings/switch-windows"
+        value: "['<Alt>Tab']"
+        state: present
+    - name: Configure Alt-Tab for switching back between windows
+      dconf:
+        key: "/org/gnome/desktop/wm/keybindings/switch-windows-backward"
+        value: "['<Shift><Alt>Tab']"
+        state: present
+    
