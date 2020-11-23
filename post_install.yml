@@ -79,3 +79,8 @@
         state: present
     - name: Install GRML zsh config file
       command: wget -O /home/{{ ansible_user }}/.zshrc https://git.grml.org/f/grml-etc-core/etc/zsh/zshrc
+    - name: Install GRML zsh user config
+      command: wget -O /home/{{ ansible_user }}/.zshrc.local https://git.grml.org/f/grml-etc-core/etc/skel/.zshrc
+    - name: Install Flathub Repository
+      become: yes
+      command: flatpak remote-add --if-not-exists flathub https://flathub.org/repo/flathub.flatpakrepo

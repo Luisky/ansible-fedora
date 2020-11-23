@@ -1,4 +1,7 @@
 - hosts: localhost
   tasks:
-    - name: Install GRML zsh config file
-      command: wget -O /home/{{ ansible_user }}/.zshrc https://git.grml.org/f/grml-etc-core/etc/zsh/zshrc
+    - name: Configure available keyboard layouts in Gnome
+      dconf:
+        key: "/org/gnome/desktop/input-sources/sources"
+        value: "[('xkb', 'us'), ('xkb', 'fr')]"
+        state: present

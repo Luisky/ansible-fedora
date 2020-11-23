@@ -1,33 +1,3 @@
-#!/bin/bash
-# Use this script as root
-if [ "$EUID" -ne 0 ]
-  then echo "Please run with sudo"
-  exit
-fi
-
-# To limit the number of previous versions of the same package installed 
-dnf config-manager --setopt=installonly_limit=2 --save
-
-# Install useful packages
-dnf install deja-dup tilix dconf-editor gnome-tweaks gnome-extensions-app gnome-shell-extension-appindicator zsh fish make automake gcc gcc-c++ kernel-devel cmake meson vim mumble telegram-desktop julia texlive-scheme-full -y
-
-# For zsh
-wget -O .zshrc https://git.grml.org/f/grml-etc-core/etc/zsh/zshrc
-
-# RPM Fusion for fedora 33 for example
-wget https://mirrors.rpmfusion.org/free/fedora/rpmfusion-free-release-33.noarch.rpm && rpm -i rpmfusion-free-release-33.noarch.rpm
-wget https://mirrors.rpmfusion.org/nonfree/fedora/rpmfusion-nonfree-release-33.noarch.rpm && rpm -i rpmfusion-nonfree-release-33.noarch.rpm
-
-# FlatHub 
-flatpak remote-add --if-not-exists flathub https://flathub.org/repo/flathub.flatpakrepo
-
-
-# Visual Studio Code
-rpm --import https://packages.microsoft.com/keys/microsoft.asc
-sh -c 'echo -e "[code]\nname=Visual Studio Code\nbaseurl=https://packages.microsoft.com/yumrepos/vscode\nenabled=1\ngpgcheck=1\ngpgkey=https://packages.microsoft.com/keys/microsoft.asc" > /etc/yum.repos.d/vscode.repo'
-dnf check-update
-dnf install code code-insiders -y
-
 # NordVPN, don't judge morty.
 wget https://repo.nordvpn.com/yum/nordvpn/centos/noarch/Packages/n/nordvpn-release-1.0.0-1.noarch.rpm && rpm -i nordvpn-release-1.0.0-1.noarch.rpm
 
@@ -45,9 +15,6 @@ gsettings set org.gnome.desktop.wm.keybindings switch-windows-backward "['<Shift
 
 # Rust
 curl --proto '=https' --tlsv1.2 -sSf https://sh.rustup.rs | sh
-
-# NVIDIA drivers are in RPM fusion
-# dnf install akmod-nvidia
 
 # Remember to do this :
 echo "Don't forget to setup : Online Accounts and other settings (screen refresh rate, Dark theme, languages, mouse accel and sens)"
