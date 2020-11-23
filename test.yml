@@ -4,6 +4,14 @@
       command:  git config --global user.email "luis.thomas2005@gmail.com"
     - name: Configure git name
       command:  git config --global user.name "Luis Thomas"
+    - name: install the RPM Fusion free repo GPG key
+      rpm_key:
+        state: present
+        key: https://rpmfusion.org/keys?action=AttachFile&do=view&target=RPM-GPG-KEY-rpmfusion-free-fedora-2020
+    - name: install the RPM Fusion nonfree repo GPG key
+      rpm_key:
+        state: present
+        key: https://rpmfusion.org/keys?action=AttachFile&do=view&target=RPM-GPG-KEY-rpmfusion-nonfree-fedora-2020
     - name: install the RPM Fusion free repo
       become: yes
       dnf:
