@@ -2,7 +2,8 @@
   tasks:
     - name: DNF keeps only 2 versions of the same package 
       become: yes
-      warn: false
+      args:
+        warn: false
       command: dnf config-manager --setopt=installonly_limit=2 --save
     - name: Install Backups, Tilix, Geary, Evolution, Tweaks, Extensions, Appindicator, Fish, Zsh, Make, Automake, GCC-C++, Kernel Headers, CMake, Meson, Mumble, Telegram, Julia
       become: yes

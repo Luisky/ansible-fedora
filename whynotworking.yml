@@ -1,6 +1,0 @@
-- hosts: localhost
-  tasks:
-    - name: force dnf to keep only 2 versions of the same package 
-      become: yes
-      warn: false
-      command: dnf config-manager --setopt=installonly_limit=2 --save
