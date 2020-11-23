@@ -1,5 +1,9 @@
 - hosts: localhost
   tasks:
+    - name: Configure git email
+      command:  git config --global user.email "luis.thomas2005@gmail.com"
+    - name: Configure git name
+      command:  git config --global user.name "Luis Thomas"
     - name: install the RPM Fusion free repo
       dnf:
         name: "http://download1.rpmfusion.org/free/fedora/rpmfusion-free-release-{{ ansible_distribution_major_version }}.noarch.rpm"
