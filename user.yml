@@ -1,5 +1,4 @@
 - hosts: localhost
   tasks:
-    - name: print user
-      debug:
-        msg: User is -> {{ ansible_user }}
+    - name: Install GRML zsh config file
+      command: wget -O /home/{{ ansible_user }}/.zshrc https://git.grml.org/f/grml-etc-core/etc/zsh/zshrc
