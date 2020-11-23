@@ -4,90 +4,76 @@
       become: yes
       warn: false
       command: dnf config-manager --setopt=installonly_limit=2 --save
-    - name: Install Backups
+    - name: Install Backups, Tilix, Geary, Evolution, Tweaks, Extensions, Appindicator, Fish, Zsh, Make, Automake, GCC-C++, Kernel Headers, CMake, Meson, Mumble, Telegram, Julia
       become: yes
       package:
-        name: deja-dup
+        name: 
+          - deja-dup
+          - tilix
+          - geary
+          - evolution
+          - gnome-tweaks
+          - gnome-extensions-app
+          - gnome-shell-extension-appindicator
+          - fish
+          - zsh
+          - make
+          - automake
+          - gcc-c++
+          - kernel-devel
+          - cmake
+          - meson
+          - mumble
+          - telegram-desktop
+          - julia
         state: present
-    - name: Install Tilix
+    - name: Configure git email
+      command:  git config --global user.email "luis.thomas2005@gmail.com"
+    - name: Configure git name
+      command:  git config --global user.name "Luis Thomas"
+    - name: install the RPM Fusion free repo GPG key
+      become: yes
+      rpm_key:
+        state: present
+        key: https://rpmfusion.org/keys?action=AttachFile&do=get&target=RPM-GPG-KEY-rpmfusion-free-fedora-2020
+    - name: install the RPM Fusion nonfree repo GPG key
+      become: yes
+      rpm_key:
+        state: present
+        key: https://rpmfusion.org/keys?action=AttachFile&do=get&target=RPM-GPG-KEY-rpmfusion-nonfree-fedora-2020
+    - name: install the RPM Fusion free repo
+      become: yes
+      dnf:
+        name: "https://mirrors.rpmfusion.org/free/fedora/rpmfusion-free-release-{{ ansible_distribution_major_version }}.noarch.rpm"
+        state: present
+      when: ansible_distribution == 'Fedora'
+    - name: install the RPM Fusion nonfree repo
+      become: yes
+      dnf:
+        name: "https://mirrors.rpmfusion.org/nonfree/fedora/rpmfusion-nonfree-release-{{ ansible_distribution_major_version }}.noarch.rpm"
+        state: present
+      when: ansible_distribution == 'Fedora'
+    - name: Import VS Code key
+      become: yes
+      rpm_key:
+        state: present
+        key: https://packages.microsoft.com/keys/microsoft.asc
+    - name: Add VS Code repos
+      become: yes
+      warn: false
+      command: sh -c 'echo -e "[code]\nname=Visual Studio Code\nbaseurl=https://packages.microsoft.com/yumrepos/vscode\nenabled=1\ngpgcheck=1\ngpgkey=https://packages.microsoft.com/keys/microsoft.asc" > /etc/yum.repos.d/vscode.repo'
+    - name: DNF check-update
+      become: yes
+      warn: false
+      command: dnf check-update
+    - name: Install code
       become: yes
       package:
-        name: tilix
+        name: code
         state: present
-    - name: Install Tweaks (Gnome)
+    - name: Install code-insiders
       become: yes
       package:
-        name: gnome-tweaks
+        name: code-insiders
         state: present
-    - name: Install Extension App (Gnome)
-      become: yes
-      package:
-        name: gnome-extensions-app
-        state: present
-    - name: Install Appindicator extension (Gnome Shell)
-      become: yes
-      package:
-        name: gnome-shell-extension-appindicator
-        state: present
-    - name: Install zsh
-      become: yes
-      package:
-        name: zsh
-        state: present
-    - name: Install fish
-      become: yes
-      package:
-        name: fish
-        state: present
-    - name: Install make
-      become: yes
-      package:
-        name: make
-        state: present
-    - name: Install automake
-      become: yes
-      package:
-        name: automake
-        state: present
-    - name: Install GCC C++ compiler
-      become: yes
-      package:
-        name: gcc-c++
-        state: present
-    - name: Install Kernel Headers
-      become: yes
-      package:
-        name: kernel-devel
-        state: present
-    - name: Install CMake
-      become: yes
-      package:
-        name: cmake
-        state: present
-    - name: Install Meson
-      become: yes
-      package:
-        name: meson
-        state: present
-    - name: Install Vim
-      become: yes
-      package:
-        name: vim
-        state: present
-    - name: Install Mumble
-      become: yes
-      package:
-        name: mumble
-        state: present
-    - name: Install Telegram
-      become: yes
-      package:
-        name: telegram-desktop
-        state: present
-    - name: Install Julia lang
-      become: yes
-      package:
-        name: julia
-        state: present
-    - name: Install RPM Fusion Free 
-      yum: https://mirrors.rpmfusion.org/free/fedora/rpmfusion-free-release-{{ ansible_distribution_version }}.noarch.rpm
+    - name: Install GRML zsh config file

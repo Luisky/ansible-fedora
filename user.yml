@@ -1,0 +1,5 @@
+- hosts: localhost
+  tasks:
+    - name: print user
+      debug:
+        msg: User is -> {{ ansible_user }}
