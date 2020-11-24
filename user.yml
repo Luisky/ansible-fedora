@@ -1,32 +1,17 @@
 - hosts: localhost
   tasks:
-    - name: Install psutil
+    - name: Install Flathub Repository
       become: yes
-      package:
-        name: python3-psutil
-    - name: Configure available keyboard layouts in Gnome
-      dconf:
-        key: "/org/gnome/desktop/input-sources/sources"
-        value: "[('xkb', 'us'), ('xkb', 'fr')]"
+      command: flatpak remote-add --if-not-exists flathub https://flathub.org/repo/flathub.flatpakrepo
+    - name: Install Flatseal
+      flatpak:
+        name: flatseal
         state: present
-    - name: Configure Super-Tab for switching between applications
-      dconf:
-        key: "/org/gnome/desktop/wm/keybindings/switch-applications"
-        value: "['<Super>Tab']"
+    - name: Install Spotify
+      flatpak:
+        name: spotify
         state: present
-    - name: Configure Shift-Super-Tab for switching back between applications
-      dconf:
-        key: "/org/gnome/desktop/wm/keybindings/switch-applications-backward"
-        value: "['<Shift><Super>Tab']"
+    - name: Install NordPass
+      flatpak:
+        name: nordpass
         state: present
-    - name: Configure Alt-Tab for switching between windows
-      dconf:
-        key: "/org/gnome/desktop/wm/keybindings/switch-windows"
-        value: "['<Alt>Tab']"
-        state: present
-    - name: Configure Alt-Tab for switching back between windows
-      dconf:
-        key: "/org/gnome/desktop/wm/keybindings/switch-windows-backward"
-        value: "['<Shift><Alt>Tab']"
-        state: present
-    

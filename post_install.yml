@@ -5,7 +5,7 @@
       args:
         warn: false
       command: dnf config-manager --setopt=installonly_limit=2 --save
-    - name: Install Backups, Tilix, Geary, Evolution, Tweaks, Extensions, Appindicator, Fish, Zsh, Make, Automake, GCC-C++, Kernel Headers, CMake, Meson, Mumble, Telegram, Julia
+    - name: Install Backups, Tilix, Geary, Evolution, Tweaks, Extensions, Appindicator, Fish, Zsh, Make, Automake, GCC-C++, Kernel Headers, CMake, Meson, Mumble, Telegram, Julia, psutil
       become: yes
       package:
         name: 
@@ -27,6 +27,7 @@
           - mumble
           - telegram-desktop
           - julia
+          - python3-psutil
         state: present
     - name: Configure git email
       command:  git config --global user.email "luis.thomas2005@gmail.com"
@@ -81,6 +82,31 @@
       command: wget -O /home/{{ ansible_user }}/.zshrc https://git.grml.org/f/grml-etc-core/etc/zsh/zshrc
     - name: Install GRML zsh user config
       command: wget -O /home/{{ ansible_user }}/.zshrc.local https://git.grml.org/f/grml-etc-core/etc/skel/.zshrc
+    - name: Configure available keyboard layouts in Gnome
+      dconf:
+        key: "/org/gnome/desktop/input-sources/sources"
+        value: "[('xkb', 'us'), ('xkb', 'fr')]"
+        state: present
+    - name: Configure Super-Tab for switching between applications
+      dconf:
+        key: "/org/gnome/desktop/wm/keybindings/switch-applications"
+        value: "['<Super>Tab']"
+        state: present
+    - name: Configure Shift-Super-Tab for switching back between applications
+      dconf:
+        key: "/org/gnome/desktop/wm/keybindings/switch-applications-backward"
+        value: "['<Shift><Super>Tab']"
+        state: present
+    - name: Configure Alt-Tab for switching between windows
+      dconf:
+        key: "/org/gnome/desktop/wm/keybindings/switch-windows"
+        value: "['<Alt>Tab']"
+        state: present
+    - name: Configure Alt-Tab for switching back between windows
+      dconf:
+        key: "/org/gnome/desktop/wm/keybindings/switch-windows-backward"
+        value: "['<Shift><Alt>Tab']"
+        state: present
     - name: Install Flathub Repository
       become: yes
       command: flatpak remote-add --if-not-exists flathub https://flathub.org/repo/flathub.flatpakrepo
