@@ -32,7 +32,7 @@
     - name: Configure Dark Theme
       dconf:
         key: "/org/gnome/desktop/interface/gtk-theme"
-        value: Adwaita-dark
+        value: "'Adwaita-dark'"
         state: present
     - name: Show weekday in gnome-shell clock
       dconf:
@@ -42,5 +42,5 @@
     - name: Change mouse acceleration profile to Flat
       dconf:
         key: "/org/gnome/desktop/peripherals/mouse/accel-profile"
-        value: "flat"
+        value: "'flat'"
         state: present
