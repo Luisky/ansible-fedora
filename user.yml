@@ -15,3 +15,11 @@
       flatpak:
         name: nordpass
         state: present
+    - name: Install Discord
+      flatpak:
+        name: discord
+        state: present
+    - name: Install Slack
+      flatpak:
+        name: slack
+        state: present

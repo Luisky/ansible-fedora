@@ -5,11 +5,12 @@
       args:
         warn: false
       command: dnf config-manager --setopt=installonly_limit=2 --save
-    - name: Install Backups, Tilix, Geary, Evolution, Tweaks, Extensions, Appindicator, Fish, Zsh, Make, Automake, GCC-C++, Kernel Headers, CMake, Meson, Mumble, Telegram, Julia, psutil
+    - name: Install Backups, Dconf-Editor, Tilix, Geary, Evolution, Tweaks, Extensions, Appindicator, Fish, Zsh, Make, Automake, GCC-C++, Kernel Headers, CMake, Meson, Mumble, Telegram, Julia, psutil
       become: yes
       package:
         name: 
           - deja-dup
+          - dconf-editor
           - tilix
           - geary
           - evolution
