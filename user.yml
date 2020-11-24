@@ -32,7 +32,7 @@
     - name: Configure Dark Theme
       dconf:
         key: "/org/gnome/desktop/interface/gtk-theme"
-        value: "Adwaita-dark"
+        value: Adwaita-dark
         state: present
     - name: Show weekday in gnome-shell clock
       dconf:
