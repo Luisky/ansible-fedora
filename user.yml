@@ -1,25 +1,46 @@
 - hosts: localhost
   tasks:
-    - name: Install Flathub Repository
+    - name: Install psutil
       become: yes
-      command: flatpak remote-add --if-not-exists flathub https://flathub.org/repo/flathub.flatpakrepo
-    - name: Install Flatseal
-      flatpak:
-        name: flatseal
+      package:
+        name: python3-psutil
+    - name: Configure available keyboard layouts in Gnome
+      dconf:
+        key: "/org/gnome/desktop/input-sources/sources"
+        value: "[('xkb', 'us'), ('xkb', 'fr')]"
         state: present
-    - name: Install Spotify
-      flatpak:
-        name: spotify
+    - name: Configure Super-Tab for switching between applications
+      dconf:
+        key: "/org/gnome/desktop/wm/keybindings/switch-applications"
+        value: "['<Super>Tab']"
         state: present
-    - name: Install NordPass
-      flatpak:
-        name: nordpass
+    - name: Configure Shift-Super-Tab for switching back between applications
+      dconf:
+        key: "/org/gnome/desktop/wm/keybindings/switch-applications-backward"
+        value: "['<Shift><Super>Tab']"
         state: present
-    - name: Install Discord
-      flatpak:
-        name: discord
+    - name: Configure Alt-Tab for switching between windows
+      dconf:
+        key: "/org/gnome/desktop/wm/keybindings/switch-windows"
+        value: "['<Alt>Tab']"
         state: present
-    - name: Install Slack
-      flatpak:
-        name: slack
+    - name: Configure Alt-Tab for switching back between windows
+      dconf:
+        key: "/org/gnome/desktop/wm/keybindings/switch-windows-backward"
+        value: "['<Shift><Alt>Tab']"
+        state: present
+    - name: Configure Dark Theme
+      dconf:
+        key: "/org/gnome/desktop/interface/gtk-theme"
+        value: "Adwaita-dark"
+        state: present
+    - name: Show weekday in gnome-shell clock
+      dconf:
+        key: "/org/gnome/desktop/interface/clock-show-weekday"
+        value: true
+        state: present
+    - name: Change mouse acceleration profile to Flat
+      dconf:
+        key: "/org/gnome/desktop/peripherals/mouse/accel-profile"
+        value: "flat"
         state: present
