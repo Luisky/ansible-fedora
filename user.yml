@@ -37,7 +37,7 @@
     - name: Show weekday in gnome-shell clock
       dconf:
         key: "/org/gnome/desktop/interface/clock-show-weekday"
-        value: true
+        value: "'true'"
         state: present
     - name: Change mouse acceleration profile to Flat
       dconf:
