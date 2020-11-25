@@ -1,4 +1,8 @@
 - hosts: localhost
   tasks:
-    - name: Install jetbrains-toolbox
-      command: wget https://download.jetbrains.com/toolbox/jetbrains-toolbox-1.18.7609.tar.gz && tar xf jetbrains-toolbox-1.18.7609.tar.gz && ./jetbrains-toolbox-1.18.7609/jetbrains-toolbox
+    - name: download jetbrains-toolbox
+      command: wget https://download.jetbrains.com/toolbox/jetbrains-toolbox-1.18.7609.tar.gz
+    - name: untar jetbrains-toolbox
+      command: tar xf jetbrains-toolbox-1.18.7609.tar.gz
+    - name: run jetbrains-toolbox
+      command: ./jetbrains-toolbox-1.18.7609/jetbrains-toolbox
