@@ -6,6 +6,6 @@
     - name: untar jetbrains-toolbox
       unarchive:
         src: jetbrains-toolbox-1.18.7609.tar.gz
-        dest: .
+        dest: {{ playbook_dir }}
     - name: run jetbrains-toolbox
       command: ./jetbrains-toolbox-1.18.7609/jetbrains-toolbox
