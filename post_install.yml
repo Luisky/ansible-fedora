@@ -5,7 +5,7 @@
       args:
         warn: false
       command: dnf config-manager --setopt=installonly_limit=2 --save
-    - name: Install Backups, Dconf-Editor, Tilix, Geary, Evolution, Tweaks, Extensions, Appindicator, Fish, Zsh, Make, Automake, GCC-C++, Kernel Headers, CMake, Meson, Mumble, Telegram, Julia, psutil
+    - name: Install Backups, Dconf-Editor, Tilix, Geary, Evolution, Tweaks, Extensions, Appindicator, Fish, Zsh, lsd, Make, Automake, GCC-C++, Kernel Headers, CMake, Meson, Mumble, Telegram, Julia, psutil
       become: yes
       package:
         name: 
@@ -19,6 +19,7 @@
           - gnome-shell-extension-appindicator
           - fish
           - zsh
+          - lsd
           - make
           - automake
           - gcc-c++
@@ -34,6 +35,16 @@
       command:  git config --global user.email "luis.thomas2005@gmail.com"
     - name: Configure git name
       command:  git config --global user.name "Luis Thomas"
+    - name: install nordvpn command line tool (don't judge)
+      become: yes
+      dnf:
+        name: "https://repo.nordvpn.com/yum/nordvpn/centos/noarch/Packages/n/nordvpn-release-1.0.0-1.noarch.rpm"
+        state: present
+    - name: Google Chrome 
+      become: yes
+      dnf:
+        name: "https://dl.google.com/linux/direct/google-chrome-stable_current_x86_64.rpm"
+        state: present
     - name: install the RPM Fusion free repo GPG key
       become: yes
       rpm_key:
@@ -83,6 +94,8 @@
       command: wget -O /home/{{ ansible_user }}/.zshrc https://git.grml.org/f/grml-etc-core/etc/zsh/zshrc
     - name: Install GRML zsh user config
       command: wget -O /home/{{ ansible_user }}/.zshrc.local https://git.grml.org/f/grml-etc-core/etc/skel/.zshrc
+    - name: Install my vim config
+      command: wget -O /home/{{ ansible_user }}/.vimrc https://gist.githubusercontent.com/Luisky/efd00a48f4ab1483df7587e84961efcb/raw/ce129ae52b8bdec246fa14d391661e55835df3b4/.vimrc
     - name: Configure available keyboard layouts in Gnome
       dconf:
         key: "/org/gnome/desktop/input-sources/sources"
@@ -156,4 +169,3 @@
       flatpak:
         name: slack
         state: present
-    
