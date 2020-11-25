@@ -3,6 +3,7 @@
     - name: download jetbrains-toolbox
       get_url:
         url: https://download.jetbrains.com/toolbox/jetbrains-toolbox-1.18.7609.tar.gz
+        dest: {{ playbook_dir }}
     - name: untar jetbrains-toolbox
       unarchive:
         src: jetbrains-toolbox-1.18.7609.tar.gz
