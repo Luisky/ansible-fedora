@@ -10,6 +10,26 @@ This YAML file is configured to :
 
 ## Run Ansible
 
+## Stuff that can't be automated
+
+### Extensions :
+
+They have to be enabled manually with the extension App. I disbale 'Fedora Logo' and enable both 'Places Status Indicator' and 'KStatusNotifierItem/AppIndicator Support'. ('Removable Drive Menu' is nice too but I don't use it).
+
+### Online Accounts :
+
+Google and Microsoft accounts for mails.
+
+### Mouse Sensitivty :
+
+Tune it to your liking.
+
+### Default Apps : 
+
+May be automated
+
+### Restoring From a Backup :
+
 
 
 

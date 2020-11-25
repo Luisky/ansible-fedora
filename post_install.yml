@@ -111,17 +111,27 @@
     - name: Configure Dark Theme
       dconf:
         key: "/org/gnome/desktop/interface/gtk-theme"
-        value: "Adwaita-dark"
+        value: "'Adwaita-dark'"
         state: present
     - name: Show weekday in gnome-shell clock
       dconf:
         key: "/org/gnome/desktop/interface/clock-show-weekday"
-        value: true
+        value: "'true'"
+        state: present
+    - name: Allow volume above 100%
+      dconf:
+        key: "/org/gnome/desktop/sound/allow-volume-above-100-percent"
+        value: "'true'"
+        state: present
+    - name: Show Battery percentage
+      dconf:
+        key: "/org/gnome/desktop/interface/show-battery-percentage"
+        value: "'true'"
         state: present
     - name: Change mouse acceleration profile to Flat
       dconf:
         key: "/org/gnome/desktop/peripherals/mouse/accel-profile"
-        value: "flat"
+        value: "'flat'"
         state: present
     - name: Install Flathub Repository
       become: yes
