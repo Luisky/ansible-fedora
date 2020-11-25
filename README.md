@@ -31,3 +31,7 @@ Another thing to modify in the Settings app.
 ### Restoring From a Backup :
 
 From a physical hard drive or Google Drive.
+
+### Setup a root password
+
+using sudo su with newly created user and then passwd
