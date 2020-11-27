@@ -5,6 +5,33 @@
       args:
         warn: false
       command: dnf config-manager --setopt=installonly_limit=2 --save
+    - name: install the RPM Fusion free repo GPG key
+      become: yes
+      rpm_key:
+        state: present
+        key: https://rpmfusion.org/keys?action=AttachFile&do=get&target=RPM-GPG-KEY-rpmfusion-free-fedora-2020
+    - name: install the RPM Fusion nonfree repo GPG key
+      become: yes
+      rpm_key:
+        state: present
+        key: https://rpmfusion.org/keys?action=AttachFile&do=get&target=RPM-GPG-KEY-rpmfusion-nonfree-fedora-2020
+    - name: install the RPM Fusion free repo
+      become: yes
+      dnf:
+        name: "https://mirrors.rpmfusion.org/free/fedora/rpmfusion-free-release-{{ ansible_distribution_major_version }}.noarch.rpm"
+        state: present
+      when: ansible_distribution == 'Fedora'
+    - name: install the RPM Fusion nonfree repo
+      become: yes
+      dnf:
+        name: "https://mirrors.rpmfusion.org/nonfree/fedora/rpmfusion-nonfree-release-{{ ansible_distribution_major_version }}.noarch.rpm"
+        state: present
+      when: ansible_distribution == 'Fedora'
+    - name: Upgrade all packages
+      become: yes
+      dnf:
+        name: "*"
+        state: latest    
     - name: Install Backups, Dconf-Editor, Tilix, Geary, Evolution, Tweaks, Extensions, Appindicator, Fish, Zsh, lsd, Make, Automake, GCC-C++, Kernel Headers, CMake, Meson, Mumble, Telegram, Julia, psutil
       become: yes
       package:
@@ -45,28 +72,6 @@
       dnf:
         name: "https://dl.google.com/linux/direct/google-chrome-stable_current_x86_64.rpm"
         state: present
-    - name: install the RPM Fusion free repo GPG key
-      become: yes
-      rpm_key:
-        state: present
-        key: https://rpmfusion.org/keys?action=AttachFile&do=get&target=RPM-GPG-KEY-rpmfusion-free-fedora-2020
-    - name: install the RPM Fusion nonfree repo GPG key
-      become: yes
-      rpm_key:
-        state: present
-        key: https://rpmfusion.org/keys?action=AttachFile&do=get&target=RPM-GPG-KEY-rpmfusion-nonfree-fedora-2020
-    - name: install the RPM Fusion free repo
-      become: yes
-      dnf:
-        name: "https://mirrors.rpmfusion.org/free/fedora/rpmfusion-free-release-{{ ansible_distribution_major_version }}.noarch.rpm"
-        state: present
-      when: ansible_distribution == 'Fedora'
-    - name: install the RPM Fusion nonfree repo
-      become: yes
-      dnf:
-        name: "https://mirrors.rpmfusion.org/nonfree/fedora/rpmfusion-nonfree-release-{{ ansible_distribution_major_version }}.noarch.rpm"
-        state: present
-      when: ansible_distribution == 'Fedora'
     - name: Import VS Code key
       become: yes
       rpm_key:
