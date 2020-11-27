@@ -5,4 +5,4 @@
         url: https://sh.rustup.rs
         dest: "{{ playbook_dir }}"
     - name: execute rustup-init.sh
-      command: sh rustup-init.sh 
+      command: sh rustup-init.sh -y
