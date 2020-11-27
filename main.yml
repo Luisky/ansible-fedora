@@ -1,6 +1,7 @@
 - name: Luisky's Fedora Workstation
   hosts: localhost
   tasks:
+    # DNF config and packages
     - name: DNF keeps only 2 versions of the same package 
       become: yes
       args:
@@ -28,11 +29,39 @@
         name: "https://mirrors.rpmfusion.org/nonfree/fedora/rpmfusion-nonfree-release-{{ ansible_distribution_major_version }}.noarch.rpm"
         state: present
       when: ansible_distribution == 'Fedora'
+    - name: install the NordVPN GPG key
+      become: yes
+      rpm_key:
+        state: present
+        key: https://repo.nordvpn.com/gpg/nordvpn_public.asc
+    - name: install NordVPN RPM repo
+      become: yes
+      dnf:
+        name: "https://repo.nordvpn.com/yum/nordvpn/centos/noarch/Packages/n/nordvpn-release-1.0.0-1.noarch.rpm"
+        state: present
+    - name: install the Google Chrome GPG key
+      become: yes
+      rpm_key:
+        state: present
+        key: https://dl.google.com/linux/linux_signing_key.pub
+    - name: Google Chrome 
+      become: yes
+      dnf:
+        name: "https://dl.google.com/linux/direct/google-chrome-stable_current_x86_64.rpm"
+        state: present
+    - name: Import VS Code key
+      become: yes
+      rpm_key:
+        state: present
+        key: https://packages.microsoft.com/keys/microsoft.asc
+    - name: Add VS Code repos
+      become: yes
+      command: sh -c 'echo -e "[code]\nname=Visual Studio Code\nbaseurl=https://packages.microsoft.com/yumrepos/vscode\nenabled=1\ngpgcheck=1\ngpgkey=https://packages.microsoft.com/keys/microsoft.asc" > /etc/yum.repos.d/vscode.repo'
     - name: Upgrade all packages
       become: yes
       dnf:
         name: "*"
-        state: latest    
+        state: latest 
     - name: Install Backups, Dconf-Editor, Tilix, Geary, Evolution, Tweaks, Extensions, Appindicator, Fish, Zsh, lsd, Make, Automake, GCC-C++, Kernel Headers, CMake, Meson, Mumble, Telegram, Julia, psutil
       become: yes
       package:
@@ -58,50 +87,22 @@
           - telegram-desktop
           - julia
           - python3-psutil
+          - code
+          - code-insiders
+          - nordvpn
         state: present
+    # Configuration files and git config
     - name: Configure git email
       command:  git config --global user.email "luis.thomas2005@gmail.com"
     - name: Configure git name
       command:  git config --global user.name "Luis Thomas"
-    - name: install nordvpn command line tool (don't judge)
-      become: yes
-      dnf:
-        name: "https://repo.nordvpn.com/yum/nordvpn/centos/noarch/Packages/n/nordvpn-release-1.0.0-1.noarch.rpm"
-        state: present
-    - name: Google Chrome 
-      become: yes
-      dnf:
-        name: "https://dl.google.com/linux/direct/google-chrome-stable_current_x86_64.rpm"
-        state: present
-    - name: Import VS Code key
-      become: yes
-      rpm_key:
-        state: present
-        key: https://packages.microsoft.com/keys/microsoft.asc
-    - name: Add VS Code repos
-      become: yes
-      command: sh -c 'echo -e "[code]\nname=Visual Studio Code\nbaseurl=https://packages.microsoft.com/yumrepos/vscode\nenabled=1\ngpgcheck=1\ngpgkey=https://packages.microsoft.com/keys/microsoft.asc" > /etc/yum.repos.d/vscode.repo'
-    - name: DNF check-update
-      become: yes
-      args:
-        warn: false
-      command: dnf check-update
-    - name: Install code
-      become: yes
-      package:
-        name: code
-        state: present
-    - name: Install code-insiders
-      become: yes
-      package:
-        name: code-insiders
-        state: present
     - name: Install GRML zsh config file
       command: wget -O /home/{{ ansible_user }}/.zshrc https://git.grml.org/f/grml-etc-core/etc/zsh/zshrc
     - name: Install GRML zsh user config
       command: wget -O /home/{{ ansible_user }}/.zshrc.local https://git.grml.org/f/grml-etc-core/etc/skel/.zshrc
     - name: Install my vim config
       command: wget -O /home/{{ ansible_user }}/.vimrc https://gist.githubusercontent.com/Luisky/efd00a48f4ab1483df7587e84961efcb/raw/ce129ae52b8bdec246fa14d391661e55835df3b4/.vimrc
+    # Dconf and gnome configuration
     - name: Configure available keyboard layouts in Gnome
       dconf:
         key: "/org/gnome/desktop/input-sources/sources"
@@ -152,6 +153,7 @@
         key: "/org/gnome/desktop/peripherals/mouse/accel-profile"
         value: "'flat'"
         state: present
+    # Flatpak and Flathub apps
     - name: Install Flathub Repository
       become: yes
       command: flatpak remote-add --if-not-exists flathub https://flathub.org/repo/flathub.flatpakrepo
@@ -175,6 +177,7 @@
       flatpak:
         name: slack
         state: present
+    # JetBrains toobox install
     - name: download jetbrains-toolbox
       get_url:
         url: https://download.jetbrains.com/toolbox/jetbrains-toolbox-1.18.7609.tar.gz
@@ -185,6 +188,7 @@
         dest: "{{ playbook_dir }}"
     - name: run jetbrains-toolbox
       command: ./jetbrains-toolbox-1.18.7609/jetbrains-toolbox
+    # Rustup install
     - name: download rustup-init.sh
       get_url:
         url: https://sh.rustup.rs
