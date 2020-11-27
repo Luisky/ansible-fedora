@@ -11,6 +11,11 @@
       dnf:
         name: "https://repo.nordvpn.com/yum/nordvpn/centos/noarch/Packages/n/nordvpn-release-1.0.0-1.noarch.rpm"
         state: present
+    - name: install the Google Chrome GPG key
+      become: yes
+      rpm_key:
+        state: present
+        key: https://dl.google.com/linux/linux_signing_key.pub
     - name: Google Chrome 
       become: yes
       dnf:
