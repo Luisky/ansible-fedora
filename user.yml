@@ -6,3 +6,5 @@
         dest: "{{ playbook_dir }}"
     - name: execute rustup-init.sh
       command: sh rustup-init.sh -y
+    - name: source $HOME/.cargo/env
+      command: source $HOME/.cargo/env
