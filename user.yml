@@ -1,4 +1,6 @@
 - hosts: localhost
   tasks:
     - name: download rustup
-      command: curl --proto '=https' --tlsv1.2 -sSf https://sh.rustup.rs | sh
+      get_url:
+        url: https://sh.rustup.rs
+        dest: "{{ playbook_dir }}"

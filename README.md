@@ -34,4 +34,4 @@ From a physical hard drive or Google Drive.
 
 ### Setup a root password
 
-using sudo su with newly created user and then passwd
+using `sudo su` with newly created user and then `passwd`
