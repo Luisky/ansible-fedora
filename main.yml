@@ -179,4 +179,10 @@
         dest: "{{ playbook_dir }}"
     - name: run jetbrains-toolbox
       command: ./jetbrains-toolbox-1.18.7609/jetbrains-toolbox
+    - name: download rustup-init.sh
+      get_url:
+        url: https://sh.rustup.rs
+        dest: "{{ playbook_dir }}"
+    - name: execute rustup-init.sh
+      command: sh rustup-init.sh -y
     
