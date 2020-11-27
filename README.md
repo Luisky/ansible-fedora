@@ -34,4 +34,8 @@ From a physical hard drive or Google Drive.
 
 ### Setup a root password
 
-using `sudo su` with newly created user and then `passwd`
+Using `sudo su` with newly created user and then `passwd`
+
+### Tilix shorcut
+
+Add a shorcut in the kerboard section of the Settings app (Ctrl + Alt + T)

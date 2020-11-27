@@ -1,4 +1,5 @@
-- hosts: localhost
+- name: Luisky's Fedora Workstation
+  hosts: localhost
   tasks:
     - name: DNF keeps only 2 versions of the same package 
       become: yes
