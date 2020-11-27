@@ -1,6 +1,9 @@
 - hosts: localhost
   tasks:
-    - name: download rustup
+    - name: download rustup-init.sh
       get_url:
         url: https://sh.rustup.rs
         dest: "{{ playbook_dir }}"
+    - name: execute rustup-init.sh
+      command:
+        name: sh rustup-init.sh
