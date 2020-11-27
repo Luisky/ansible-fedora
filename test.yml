@@ -1,6 +1,11 @@
 - name: Testing file
   hosts: localhost
   tasks:
+    - name: install the NordVPN GPG key
+      become: yes
+      rpm_key:
+        state: present
+        key: https://repo.nordvpn.com/gpg/nordvpn_public.asc
     - name: install nordvpn command line tool (don't judge)
       become: yes
       dnf:
@@ -11,5 +16,3 @@
       dnf:
         name: "https://dl.google.com/linux/direct/google-chrome-stable_current_x86_64.rpm"
         state: present
-
-#https://repo.nordvpn.com/gpg/nordvpn_public.asc
