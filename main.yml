@@ -195,4 +195,6 @@
         dest: "{{ playbook_dir }}"
     - name: execute rustup-init.sh
       command: sh rustup-init.sh -y
+    - debug:
+        msg: You may install Microsoft Teams by going to https://www.microsoft.com/en-us/microsoft-365/microsoft-teams/download-app#allDevicesSection
     
