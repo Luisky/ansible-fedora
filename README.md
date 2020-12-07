@@ -5,8 +5,13 @@
 In order to run this post install script we need to install Ansible (`dnf install ansible` on Fedora). And then use `ansible-playbook -K main.yml`.
 This YAML file is configured to :
 
-- reduce the limit 
-- 
+- Reduce the limit of packages version to 2. (DNF)
+- Install Google Chrome, vscode, and other apps
+- git, zsh and vim config
+- Dconf config
+- Flatpak programs
+- JetBrains
+- Rust
 
 ## Run Ansible
 
