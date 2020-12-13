@@ -92,6 +92,8 @@
           - nordvpn
         state: present
     # Configuration files and git config
+    - name: Download gdb dashboard
+      command: wget -P ~ https://git.io/.gdbinit
     - name: Configure git email
       command:  git config --global user.email "luis.thomas2005@gmail.com"
     - name: Configure git name
