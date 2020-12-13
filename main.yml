@@ -90,6 +90,7 @@
           - code
           - code-insiders
           - nordvpn
+          - python3-pygments
         state: present
     # Configuration files and git config
     - name: Download gdb dashboard
