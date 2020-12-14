@@ -92,6 +92,9 @@
           - nordvpn
           - python3-pygments
         state: present
+
+
+
     # Configuration files and git config
     - name: Download gdb dashboard
       command: wget -P ~ https://git.io/.gdbinit
@@ -105,6 +108,9 @@
       command: wget -O /home/{{ ansible_user }}/.zshrc.local https://git.grml.org/f/grml-etc-core/etc/skel/.zshrc
     - name: Install my vim config
       command: wget -O /home/{{ ansible_user }}/.vimrc https://gist.githubusercontent.com/Luisky/efd00a48f4ab1483df7587e84961efcb/raw/ce129ae52b8bdec246fa14d391661e55835df3b4/.vimrc
+
+
+
     # Dconf and gnome configuration
     - name: Configure available keyboard layouts in Gnome
       dconf:
@@ -156,6 +162,9 @@
         key: "/org/gnome/desktop/peripherals/mouse/accel-profile"
         value: "'flat'"
         state: present
+
+
+
     # Flatpak and Flathub apps
     - name: Install Flathub Repository
       become: yes
@@ -180,6 +189,9 @@
       flatpak:
         name: slack
         state: present
+
+
+
     # JetBrains toobox install
     - name: download jetbrains-toolbox
       get_url:
@@ -191,6 +203,9 @@
         dest: "{{ playbook_dir }}"
     - name: run jetbrains-toolbox
       command: ./jetbrains-toolbox-1.18.7609/jetbrains-toolbox
+
+
+
     # Rustup install
     - name: download rustup-init.sh
       get_url:
