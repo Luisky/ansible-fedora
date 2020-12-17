@@ -62,7 +62,7 @@
       dnf:
         name: "*"
         state: latest 
-    - name: Install Backups, Dconf-Editor, Tilix, Geary, Evolution, Tweaks, Extensions, Appindicator, Fish, Zsh, lsd, Make, Automake, GCC-C++, Kernel Headers, CMake, Meson, Mumble, Telegram, Julia, psutil
+    - name: Install Backups, Dconf-Editor, Tilix, Geary, Tweaks, Extensions, Appindicator, Fish, Zsh, lsd, Make, Automake, GCC-C++, Kernel Headers, CMake, Meson, Mumble, Telegram, Julia, psutil
       become: yes
       package:
         name: 
@@ -70,7 +70,6 @@
           - dconf-editor
           - tilix
           - geary
-          - evolution
           - gnome-tweaks
           - gnome-extensions-app
           - gnome-shell-extension-appindicator
