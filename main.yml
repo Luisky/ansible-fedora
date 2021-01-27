@@ -90,9 +90,16 @@
           - code-insiders
           - nordvpn
           - python3-pygments
+          - tilix-nautilus
+          - cockpit
         state: present
 
-
+    # Enable cockpit
+    - name: Enable service cockpit and ensure it is not masked
+      ansible.builtin.systemd:
+        name: cockpit.socket
+        enabled: yes
+        state: started
 
     # Configuration files and git config
     - name: Download gdb dashboard
@@ -184,10 +191,10 @@
       flatpak:
         name: discord
         state: present
-    - name: Install Slack
-      flatpak:
-        name: slack
-        state: present
+    # - name: Install Slack
+    #   flatpak:
+    #     name: slack
+    #     state: present
 
 
 
