@@ -1,80 +1,81 @@
 - name: Luisky's Fedora Workstation
   hosts: localhost
   tasks:
+    
     # DNF config and packages
     - name: DNF keeps only 2 versions of the same package 
       become: yes
       args:
         warn: false
       command: dnf config-manager --setopt=installonly_limit=2 --save
+    
     - name: install the RPM Fusion free repo GPG key
       become: yes
       rpm_key:
         state: present
         key: https://rpmfusion.org/keys?action=AttachFile&do=get&target=RPM-GPG-KEY-rpmfusion-free-fedora-2020
+    
     - name: install the RPM Fusion nonfree repo GPG key
       become: yes
       rpm_key:
         state: present
         key: https://rpmfusion.org/keys?action=AttachFile&do=get&target=RPM-GPG-KEY-rpmfusion-nonfree-fedora-2020
+    
     - name: install the RPM Fusion free repo
       become: yes
       dnf:
         name: "https://mirrors.rpmfusion.org/free/fedora/rpmfusion-free-release-{{ ansible_distribution_major_version }}.noarch.rpm"
         state: present
       when: ansible_distribution == 'Fedora'
+    
     - name: install the RPM Fusion nonfree repo
       become: yes
       dnf:
         name: "https://mirrors.rpmfusion.org/nonfree/fedora/rpmfusion-nonfree-release-{{ ansible_distribution_major_version }}.noarch.rpm"
         state: present
       when: ansible_distribution == 'Fedora'
-    - name: install the NordVPN GPG key
-      become: yes
-      rpm_key:
-        state: present
-        key: https://repo.nordvpn.com/gpg/nordvpn_public.asc
-    - name: install NordVPN RPM repo
-      become: yes
-      dnf:
-        name: "https://repo.nordvpn.com/yum/nordvpn/centos/noarch/Packages/n/nordvpn-release-1.0.0-1.noarch.rpm"
-        state: present
+    
     - name: install the Google Chrome GPG key
       become: yes
       rpm_key:
         state: present
         key: https://dl.google.com/linux/linux_signing_key.pub
+    
     - name: Google Chrome 
       become: yes
       dnf:
         name: "https://dl.google.com/linux/direct/google-chrome-stable_current_x86_64.rpm"
         state: present
+    
     - name: Import VS Code key
       become: yes
       rpm_key:
         state: present
         key: https://packages.microsoft.com/keys/microsoft.asc
+    
     - name: Add VS Code repos
       become: yes
       command: sh -c 'echo -e "[code]\nname=Visual Studio Code\nbaseurl=https://packages.microsoft.com/yumrepos/vscode\nenabled=1\ngpgcheck=1\ngpgkey=https://packages.microsoft.com/keys/microsoft.asc" > /etc/yum.repos.d/vscode.repo'
+    
     - name: Upgrade all packages
       become: yes
       dnf:
         name: "*"
         state: latest 
-    - name: Install Backups, Dconf-Editor, Tilix, Geary, Tweaks, Extensions, Appindicator, Fish, Zsh, lsd, Make, Automake, GCC-C++, Kernel Headers, CMake, Meson, Mumble, Telegram, Julia, psutil
+    
+    - name: Install useful packages
       become: yes
       package:
         name: 
           - deja-dup
           - dconf-editor
           - tilix
+          - tilix-nautilus
           - geary
           - gnome-tweaks
           - gnome-extensions-app
           - gnome-shell-extension-appindicator
           - fish
-          - zsh
           - lsd
           - make
           - automake
@@ -85,35 +86,54 @@
           - mumble
           - telegram-desktop
           - julia
+          - R
           - python3-psutil
           - code
           - code-insiders
-          - nordvpn
           - python3-pygments
-          - tilix-nautilus
           - cockpit
+          - syncthing
+          - rclone
+          - keepassxc
+          - gimp
+          - inkscape
+          - krita
+          - blender
         state: present
 
-    # Enable cockpit
+
+
+    # Enable services
     - name: Enable service cockpit and ensure it is not masked
       ansible.builtin.systemd:
         name: cockpit.socket
         enabled: yes
         state: started
+    
+    - name: Enable service syncthing and ensure it is not masked
+      ansible.builtin.systemd:
+        name: syncthing.service
+        enabled: yes
+        state: started
 
-    # Configuration files and git config
-    - name: Download gdb dashboard
-      command: wget -P ~ https://git.io/.gdbinit
+
+
+    # Git config and config files
     - name: Configure git email
       command:  git config --global user.email "luis.thomas2005@gmail.com"
+    
     - name: Configure git name
       command:  git config --global user.name "Luis Thomas"
-    - name: Install GRML zsh config file
-      command: wget -O /home/{{ ansible_user }}/.zshrc https://git.grml.org/f/grml-etc-core/etc/zsh/zshrc
-    - name: Install GRML zsh user config
-      command: wget -O /home/{{ ansible_user }}/.zshrc.local https://git.grml.org/f/grml-etc-core/etc/skel/.zshrc
+    
+    - name: Download gdb dashboard
+      command: wget -P ~ https://git.io/.gdbinit
+    
     - name: Install my vim config
-      command: wget -O /home/{{ ansible_user }}/.vimrc https://gist.githubusercontent.com/Luisky/efd00a48f4ab1483df7587e84961efcb/raw/ce129ae52b8bdec246fa14d391661e55835df3b4/.vimrc
+      command: wget -O /home/{{ ansible_user }}/.vimrc https://gist.githubusercontent.com/Luisky/e06a19469454ecb6afe0756d33a5fa1a/raw/406b97139e86ba4239ce25eaf701e860ae9bf137/.vimrc
+    # - name: Install GRML zsh config file
+    #   command: wget -O /home/{{ ansible_user }}/.zshrc https://git.grml.org/f/grml-etc-core/etc/zsh/zshrc
+    # - name: Install GRML zsh user config
+    #   command: wget -O /home/{{ ansible_user }}/.zshrc.local https://git.grml.org/f/grml-etc-core/etc/skel/.zshrc
 
 
 
@@ -123,46 +143,55 @@
         key: "/org/gnome/desktop/input-sources/sources"
         value: "[('xkb', 'us'), ('xkb', 'fr')]"
         state: present
+    
     - name: Configure Super-Tab for switching between applications
       dconf:
         key: "/org/gnome/desktop/wm/keybindings/switch-applications"
         value: "['<Super>Tab']"
         state: present
+    
     - name: Configure Shift-Super-Tab for switching back between applications
       dconf:
         key: "/org/gnome/desktop/wm/keybindings/switch-applications-backward"
         value: "['<Shift><Super>Tab']"
         state: present
+    
     - name: Configure Alt-Tab for switching between windows
       dconf:
         key: "/org/gnome/desktop/wm/keybindings/switch-windows"
         value: "['<Alt>Tab']"
         state: present
+    
     - name: Configure Alt-Tab for switching back between windows
       dconf:
         key: "/org/gnome/desktop/wm/keybindings/switch-windows-backward"
         value: "['<Shift><Alt>Tab']"
         state: present
+    
     - name: Configure Dark Theme
       dconf:
         key: "/org/gnome/desktop/interface/gtk-theme"
         value: "'Adwaita-dark'"
         state: present
+    
     - name: Show weekday in gnome-shell clock
       dconf:
         key: "/org/gnome/desktop/interface/clock-show-weekday"
         value: "'true'"
         state: present
+    
     - name: Allow volume above 100%
       dconf:
         key: "/org/gnome/desktop/sound/allow-volume-above-100-percent"
         value: "'true'"
         state: present
+    
     - name: Show Battery percentage
       dconf:
         key: "/org/gnome/desktop/interface/show-battery-percentage"
         value: "'true'"
         state: present
+    
     - name: Change mouse acceleration profile to Flat
       dconf:
         key: "/org/gnome/desktop/peripherals/mouse/accel-profile"
@@ -175,21 +204,35 @@
     - name: Install Flathub Repository
       become: yes
       command: flatpak remote-add --if-not-exists flathub https://flathub.org/repo/flathub.flatpakrepo
+    
     - name: Install Flatseal
       flatpak:
-        name: flatseal
+        name: com.github.tchx84.Flatseal
         state: present
+    
     - name: Install Spotify
       flatpak:
-        name: spotify
+        name: com.spotify.Client
         state: present
-    - name: Install NordPass
-      flatpak:
-        name: nordpass
-        state: present
+    
     - name: Install Discord
       flatpak:
-        name: discord
+        name: com.discordapp.Discord
+        state: present
+    
+    - name: Install Microsoft Teams
+      flatpak:
+        name: com.microsoft.Teams
+        state: present
+    
+    - name: Install draw.io
+      flatpak:
+        name: com.jgraph.drawio.desktop
+        state: present
+    
+    - name: Install Zotero
+      flatpak:
+        name: org.zotero.Zotero
         state: present
     # - name: Install Slack
     #   flatpak:
@@ -198,15 +241,17 @@
 
 
 
-    # JetBrains toobox install
+    # JetBrains toobox install (the link may be old and needs updating)
     - name: download jetbrains-toolbox
       get_url:
         url: https://download.jetbrains.com/toolbox/jetbrains-toolbox-1.18.7609.tar.gz
         dest: "{{ playbook_dir }}"
+    
     - name: untar jetbrains-toolbox
       unarchive:
         src: jetbrains-toolbox-1.18.7609.tar.gz
         dest: "{{ playbook_dir }}"
+    
     - name: run jetbrains-toolbox
       command: ./jetbrains-toolbox-1.18.7609/jetbrains-toolbox
 
@@ -217,8 +262,9 @@
       get_url:
         url: https://sh.rustup.rs
         dest: "{{ playbook_dir }}"
+    
     - name: execute rustup-init.sh
       command: sh rustup-init.sh -y
-    - debug:
-        msg: You may install Microsoft Teams by going to https://www.microsoft.com/en-us/microsoft-365/microsoft-teams/download-app#allDevicesSection
     
+    - debug:
+        msg: If you see this -> poor yourself a drink, Good Job Mate !
