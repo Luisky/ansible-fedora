@@ -89,7 +89,6 @@
           - R
           - python3-psutil
           - code
-          - code-insiders
           - python3-pygments
           - cockpit
           - syncthing
