@@ -100,7 +100,6 @@
           - krita
           - blender
           - flowblade
-          - audacity
         state: present
 
 
@@ -236,6 +235,13 @@
       flatpak:
         name: org.zotero.Zotero
         state: present
+
+    - name: Install Audacity
+      flatpak:
+        name: org.audacityteam.Audacity
+        state: present
+
+        
     # - name: Install Slack
     #   flatpak:
     #     name: slack
