@@ -66,7 +66,8 @@
     - name: Install useful packages
       become: yes
       package:
-        name: 
+        name:
+          - vim-enhanced
           - deja-dup
           - dconf-editor
           - tilix
@@ -99,6 +100,7 @@
           - krita
           - blender
           - conda
+          - flowblade
         state: present
 
 
@@ -234,6 +236,13 @@
       flatpak:
         name: org.zotero.Zotero
         state: present
+
+    - name: Install Audacity
+      flatpak:
+        name: org.audacityteam.Audacity
+        state: present
+
+        
     # - name: Install Slack
     #   flatpak:
     #     name: slack
