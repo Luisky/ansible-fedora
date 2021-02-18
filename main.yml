@@ -94,7 +94,6 @@
           - cockpit
           - syncthing
           - rclone
-          - keepassxc
           - gimp
           - inkscape
           - krita
@@ -232,9 +231,14 @@
         name: com.jgraph.drawio.desktop
         state: present
     
-    - name: Install Zotero
+    - name: Install Mendeley
       flatpak:
-        name: org.zotero.Zotero
+        name: com.elsevier.MendeleyDesktop
+        state: present
+    
+    - name: Install KeePassXC
+      flatpak:
+        name: org.keepassxc.KeePassXC
         state: present
 
     - name: Install Audacity
