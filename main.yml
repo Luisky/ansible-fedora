@@ -106,6 +106,7 @@
           - blender
           - conda
           - flowblade
+          - nextcloud-client
         state: present
 
 
@@ -120,20 +121,16 @@
 
     # Git config and config files
     - name: Configure git email
-      command:  git config --global user.email "luis.thomas2005@gmail.com"
+      command: git config --global user.email "luis.thomas2005@gmail.com"
     
     - name: Configure git name
-      command:  git config --global user.name "Luis Thomas"
+      command: git config --global user.name "Luis Thomas"
     
     - name: Download gdb dashboard
       command: wget -P ~ https://git.io/.gdbinit
     
     - name: Install my vim config
       command: wget -O /home/{{ ansible_user }}/.vimrc https://gist.githubusercontent.com/Luisky/e06a19469454ecb6afe0756d33a5fa1a/raw/406b97139e86ba4239ce25eaf701e860ae9bf137/.vimrc
-    # - name: Install GRML zsh config file
-    #   command: wget -O /home/{{ ansible_user }}/.zshrc https://git.grml.org/f/grml-etc-core/etc/zsh/zshrc
-    # - name: Install GRML zsh user config
-    #   command: wget -O /home/{{ ansible_user }}/.zshrc.local https://git.grml.org/f/grml-etc-core/etc/skel/.zshrc
 
 
 
