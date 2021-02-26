@@ -57,6 +57,12 @@
       become: yes
       command: sh -c 'echo -e "[code]\nname=Visual Studio Code\nbaseurl=https://packages.microsoft.com/yumrepos/vscode\nenabled=1\ngpgcheck=1\ngpgkey=https://packages.microsoft.com/keys/microsoft.asc" > /etc/yum.repos.d/vscode.repo'
     
+    - name: Remove LibreOffice and its dependencies
+      become: yes
+      dnf:
+        name: "libreoffice-*"
+        state: absent
+
     - name: Upgrade all packages
       become: yes
       dnf:
@@ -65,7 +71,7 @@
     
     - name: Install useful packages
       become: yes
-      package:
+      dnf:
         name:
           - vim-enhanced
           - deja-dup
@@ -104,19 +110,12 @@
 
 
 
-    # Enable services
+    # Enable cockpit service
     - name: Enable service cockpit and ensure it is not masked
       ansible.builtin.systemd:
         name: cockpit.socket
         enabled: yes
         state: started
-    
-    - name: Enable service syncthing and ensure it is not masked
-      ansible.builtin.systemd:
-        name: syncthing.service
-        enabled: yes
-        state: started
-
 
 
     # Git config and config files
@@ -251,11 +250,15 @@
         name: com.github.johnfactotum.Foliate
         state: present
 
-        
-    # - name: Install Slack
-    #   flatpak:
-    #     name: slack
-    #     state: present
+    - name: Install Apostrophe
+      flatpak:
+        name: org.gnome.gitlab.somas.Apostrophe 
+        state: present
+    
+    - name: Install LibreOffice
+      flatpak:
+        name: org.libreoffice.LibreOffice
+        state: present
 
 
 
