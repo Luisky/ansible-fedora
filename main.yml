@@ -80,8 +80,6 @@
           - tilix-nautilus
           - thunderbird
           - gnome-tweaks
-          - gnome-extensions-app
-          - gnome-shell-extension-appindicator
           - fish
           - lsd
           - make

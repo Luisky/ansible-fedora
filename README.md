@@ -19,7 +19,7 @@ This YAML file is configured to :
 
 ### Extensions :
 
-They have to be enabled manually with the extension App. I disbale 'Fedora Logo' and enable both 'Places Status Indicator' and 'KStatusNotifierItem/AppIndicator Support'. ('Removable Drive Menu' is nice too but I don't use it).
+They have to be enabled manually with the extension App. I disbale 'Fedora Logo' and enable 'Places Status Indicator'.
 
 ### Mouse Sensitivty :
 
