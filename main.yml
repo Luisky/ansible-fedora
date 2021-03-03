@@ -67,38 +67,27 @@
       become: yes
       dnf:
         name:
+          - code
           - vim-enhanced
           - deja-dup
-          - dconf-editor
+          - gnome-tweaks
+          - cockpit
+          - fish
+          - thunderbird
+          - rclone
+          - nextcloud-client
+          - nextcloud-client-nautilus
           - tilix
           - tilix-nautilus
-          - thunderbird
-          - gnome-tweaks
-          - fish
-          - lsd
           - make
           - automake
           - gcc-c++
           - kernel-devel
           - cmake
           - meson
-          - mumble
-          - telegram-desktop
-          - julia
-          - R
           - python3-psutil
-          - code
           - python3-pygments
-          - cockpit
-          - syncthing
-          - rclone
-          - gimp
-          - inkscape
-          - krita
-          - blender
           - conda
-          - flowblade
-          - nextcloud-client
         state: present
 
 
@@ -204,16 +193,6 @@
         name: com.spotify.Client
         state: present
     
-    - name: Install Discord
-      flatpak:
-        name: com.discordapp.Discord
-        state: present
-    
-    - name: Install Microsoft Teams
-      flatpak:
-        name: com.microsoft.Teams
-        state: present
-    
     - name: Install draw.io
       flatpak:
         name: com.jgraph.drawio.desktop
@@ -228,26 +207,16 @@
       flatpak:
         name: org.keepassxc.KeePassXC
         state: present
-
-    - name: Install Audacity
-      flatpak:
-        name: org.audacityteam.Audacity
-        state: present
     
     - name: Install Foliate
       flatpak:
         name: com.github.johnfactotum.Foliate
         state: present
 
-    - name: Install Apostrophe
-      flatpak:
-        name: org.gnome.gitlab.somas.Apostrophe 
-        state: present
-    
-    - name: Install LibreOffice
-      flatpak:
-        name: org.libreoffice.LibreOffice
-        state: present
+    # - name: Install Apostrophe
+    #   flatpak:
+    #     name: org.gnome.gitlab.somas.Apostrophe 
+    #     state: present
 
 
 
