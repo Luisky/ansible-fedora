@@ -82,6 +82,7 @@
           - thunderbird
           - rclone
           - nextcloud-client
+          - nextcloud-client-nautilus
           - tilix
           - tilix-nautilus
           - make
