@@ -213,11 +213,6 @@
         name: com.github.johnfactotum.Foliate
         state: present
 
-    # - name: Install Apostrophe
-    #   flatpak:
-    #     name: org.gnome.gitlab.somas.Apostrophe 
-    #     state: present
-
 
 
     # JetBrains toobox install (the link may be old and needs updating)
