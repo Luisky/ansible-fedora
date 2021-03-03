@@ -73,6 +73,7 @@
       become: yes
       dnf:
         name:
+          - code
           - vim-enhanced
           - deja-dup
           - dconf-editor
@@ -90,19 +91,12 @@
           - meson
           - mumble
           - telegram-desktop
-          - julia
-          - R
           - python3-psutil
-          - code
           - python3-pygments
           - cockpit
           - rclone
           - gimp
-          - inkscape
-          - krita
-          - blender
           - conda
-          - flowblade
           - nextcloud-client
         state: present
 
@@ -209,11 +203,6 @@
         name: com.spotify.Client
         state: present
     
-    - name: Install Discord
-      flatpak:
-        name: com.discordapp.Discord
-        state: present
-    
     - name: Install draw.io
       flatpak:
         name: com.jgraph.drawio.desktop
@@ -227,11 +216,6 @@
     - name: Install KeePassXC
       flatpak:
         name: org.keepassxc.KeePassXC
-        state: present
-
-    - name: Install Audacity
-      flatpak:
-        name: org.audacityteam.Audacity
         state: present
     
     - name: Install Foliate
