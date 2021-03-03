@@ -76,28 +76,23 @@
           - code
           - vim-enhanced
           - deja-dup
-          - dconf-editor
+          - gnome-tweaks
+          - cockpit
+          - fish
+          - thunderbird
+          - rclone
+          - nextcloud-client
           - tilix
           - tilix-nautilus
-          - thunderbird
-          - gnome-tweaks
-          - fish
-          - lsd
           - make
           - automake
           - gcc-c++
           - kernel-devel
           - cmake
           - meson
-          - mumble
-          - telegram-desktop
           - python3-psutil
           - python3-pygments
-          - cockpit
-          - rclone
-          - gimp
           - conda
-          - nextcloud-client
         state: present
 
 
@@ -223,15 +218,10 @@
         name: com.github.johnfactotum.Foliate
         state: present
 
-    - name: Install Apostrophe
-      flatpak:
-        name: org.gnome.gitlab.somas.Apostrophe 
-        state: present
-    
-    - name: Install LibreOffice
-      flatpak:
-        name: org.libreoffice.LibreOffice
-        state: present
+    # - name: Install Apostrophe
+    #   flatpak:
+    #     name: org.gnome.gitlab.somas.Apostrophe 
+    #     state: present
 
 
 
