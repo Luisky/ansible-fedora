@@ -56,12 +56,6 @@
     - name: Add VS Code repos
       become: yes
       command: sh -c 'echo -e "[code]\nname=Visual Studio Code\nbaseurl=https://packages.microsoft.com/yumrepos/vscode\nenabled=1\ngpgcheck=1\ngpgkey=https://packages.microsoft.com/keys/microsoft.asc" > /etc/yum.repos.d/vscode.repo'
-    
-    - name: Remove LibreOffice and its dependencies
-      become: yes
-      dnf:
-        name: "libreoffice-*"
-        state: absent
 
     - name: Upgrade all packages
       become: yes
