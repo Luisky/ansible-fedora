@@ -196,11 +196,11 @@
     
     - name: Decompress jetbrains-toolbox
       unarchive:
-        src: jetbrains-toolbox-1.18.7609.tar.gz
+        src: jetbrains-toolbox-1.19.7784.tar.gz
         dest: "{{ playbook_dir }}"
     
     - name: Run jetbrains-toolbox
-      command: ./jetbrains-toolbox-1.18.7609/jetbrains-toolbox
+      command: ./jetbrains-toolbox-1.19.7784/jetbrains-toolbox
 
 
 
