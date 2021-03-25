@@ -191,7 +191,7 @@
     # JetBrains toobox install (the link may be old and needs updating)
     - name: Donwload jetbrains-toolbox archive
       get_url:
-        url: https://download.jetbrains.com/toolbox/jetbrains-toolbox-1.18.7609.tar.gz
+        url: https://download.jetbrains.com/toolbox/jetbrains-toolbox-1.19.7784.tar.gz
         dest: "{{ playbook_dir }}"
     
     - name: Decompress jetbrains-toolbox
