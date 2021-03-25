@@ -9,39 +9,39 @@
         warn: false
       command: dnf config-manager --setopt=installonly_limit=2 --save
     
-    - name: install the RPM Fusion free repo GPG key
+    - name: Import the RPM Fusion free repo GPG key
       become: yes
       rpm_key:
         state: present
         key: https://rpmfusion.org/keys?action=AttachFile&do=get&target=RPM-GPG-KEY-rpmfusion-free-fedora-2020
     
-    - name: install the RPM Fusion nonfree repo GPG key
+    - name: Import the RPM Fusion nonfree repo GPG key
       become: yes
       rpm_key:
         state: present
         key: https://rpmfusion.org/keys?action=AttachFile&do=get&target=RPM-GPG-KEY-rpmfusion-nonfree-fedora-2020
     
-    - name: install the RPM Fusion free repo
+    - name: Import the RPM Fusion free repo
       become: yes
       dnf:
         name: "https://mirrors.rpmfusion.org/free/fedora/rpmfusion-free-release-{{ ansible_distribution_major_version }}.noarch.rpm"
         state: present
       when: ansible_distribution == 'Fedora'
     
-    - name: install the RPM Fusion nonfree repo
+    - name: Import the RPM Fusion nonfree repo
       become: yes
       dnf:
         name: "https://mirrors.rpmfusion.org/nonfree/fedora/rpmfusion-nonfree-release-{{ ansible_distribution_major_version }}.noarch.rpm"
         state: present
       when: ansible_distribution == 'Fedora'
     
-    - name: install the Google Chrome GPG key
+    - name: Import the Google Chrome GPG key
       become: yes
       rpm_key:
         state: present
         key: https://dl.google.com/linux/linux_signing_key.pub
     
-    - name: Google Chrome 
+    - name: Import the Google Chrome repo
       become: yes
       dnf:
         name: "https://dl.google.com/linux/direct/google-chrome-stable_current_x86_64.rpm"
@@ -53,7 +53,7 @@
         state: present
         key: https://packages.microsoft.com/keys/microsoft.asc
     
-    - name: Add VS Code repos
+    - name: Import VS Code repos
       become: yes
       command: sh -c 'echo -e "[code]\nname=Visual Studio Code\nbaseurl=https://packages.microsoft.com/yumrepos/vscode\nenabled=1\ngpgcheck=1\ngpgkey=https://packages.microsoft.com/keys/microsoft.asc" > /etc/yum.repos.d/vscode.repo'
 
@@ -102,7 +102,7 @@
     - name: Download gdb dashboard
       command: wget -P ~ https://git.io/.gdbinit
     
-    - name: Install my vim config
+    - name: Import my vim config
       command: wget -O /home/{{ ansible_user }}/.vimrc https://gist.githubusercontent.com/Luisky/e06a19469454ecb6afe0756d33a5fa1a/raw/406b97139e86ba4239ce25eaf701e860ae9bf137/.vimrc
 
 
@@ -147,7 +147,7 @@
 
 
     # Flatpak and Flathub apps
-    - name: Install Flathub Repository
+    - name: Import Flathub Repository
       become: yes
       command: flatpak remote-add --if-not-exists flathub https://flathub.org/repo/flathub.flatpakrepo
     
@@ -189,28 +189,28 @@
 
 
     # JetBrains toobox install (the link may be old and needs updating)
-    - name: download jetbrains-toolbox
+    - name: Donwload jetbrains-toolbox archive
       get_url:
         url: https://download.jetbrains.com/toolbox/jetbrains-toolbox-1.18.7609.tar.gz
         dest: "{{ playbook_dir }}"
     
-    - name: untar jetbrains-toolbox
+    - name: Decompress jetbrains-toolbox
       unarchive:
         src: jetbrains-toolbox-1.18.7609.tar.gz
         dest: "{{ playbook_dir }}"
     
-    - name: run jetbrains-toolbox
+    - name: Run jetbrains-toolbox
       command: ./jetbrains-toolbox-1.18.7609/jetbrains-toolbox
 
 
 
     # Rustup install
-    - name: download rustup-init.sh
+    - name: Download rustup-init.sh
       get_url:
         url: https://sh.rustup.rs
         dest: "{{ playbook_dir }}"
     
-    - name: execute rustup-init.sh
+    - name: Run rustup-init.sh
       command: sh rustup-init.sh -y
 
 
