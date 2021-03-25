@@ -22,7 +22,7 @@ In order to run this post install script we need to install Ansible and then use
 - `sudo dnf install ansible`
 - `ansible-playbook -K main.yml -u username`
 
-## Stuff that can't be automated
+## Stuff that could be automated but I didn't bother trying
 
 ### Mouse Sensitivty :
 
