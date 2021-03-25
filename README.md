@@ -17,10 +17,6 @@ This YAML file is configured to :
 
 ## Stuff that can't be automated
 
-### Extensions :
-
-They have to be enabled manually with the extension App. I disbale 'Fedora Logo' and enable 'Places Status Indicator'.
-
 ### Mouse Sensitivty :
 
 Tune it to your liking.
@@ -32,6 +28,10 @@ Another thing to modify in the Settings app.
 ### Restoring From a Backup :
 
 From a physical hard drive or Google Drive.
+
+### Firefox or Chrome or any app settings.
+
+Log into an account with the configuration in the cloud (I have a nextcloud instance with all my files)
 
 ### Setup a root password
 
