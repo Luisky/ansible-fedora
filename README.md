@@ -2,7 +2,7 @@
 
 ## Introduction
 
-This YAML file is configured for Fedora :
+This YAML file is configured for Fedora to :
 
 - Reduce the limit of packages version to 2. (DNF)
 - Install Google Chrome, vscode, and other apps
