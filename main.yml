@@ -92,15 +92,7 @@
 
 
 
-    # Enable cockpit service
-    - name: Enable service cockpit and ensure it is not masked
-      ansible.builtin.systemd:
-        name: cockpit.socket
-        enabled: yes
-        state: started
-
-
-    # Git config and config files
+# Git config and config files
     - name: Configure git email
       command: git config --global user.email "luis.thomas2005@gmail.com"
     
@@ -220,6 +212,17 @@
     
     - name: execute rustup-init.sh
       command: sh rustup-init.sh -y
+
+
+
+    # Enable cockpit service
+    - name: Enable service cockpit and ensure it is not masked
+      ansible.builtin.systemd:
+        name: cockpit.socket
+        enabled: yes
+        state: started
+
+
     
     - debug:
         msg: If you see this -> poor yourself a drink, Good Job Mate !
