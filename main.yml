@@ -192,15 +192,15 @@
     - name: Donwload jetbrains-toolbox archive
       get_url:
         url: https://download.jetbrains.com/toolbox/jetbrains-toolbox-1.19.7784.tar.gz
-        dest: "{{ playbook_dir }}"
+        dest: "{{ playbook_dir }}/tmp/"
     
     - name: Decompress jetbrains-toolbox
       unarchive:
         src: jetbrains-toolbox-1.19.7784.tar.gz
-        dest: "{{ playbook_dir }}"
+        dest: "{{ playbook_dir }}/tmp/"
     
     - name: Run jetbrains-toolbox
-      command: ./jetbrains-toolbox-1.19.7784/jetbrains-toolbox
+      command: ./tmp/jetbrains-toolbox-1.19.7784/jetbrains-toolbox
 
 
 
@@ -208,10 +208,10 @@
     - name: Download rustup-init.sh
       get_url:
         url: https://sh.rustup.rs
-        dest: "{{ playbook_dir }}"
+        dest: "{{ playbook_dir }}/tmp/"
     
     - name: Run rustup-init.sh
-      command: sh rustup-init.sh -y
+      command: sh tmp/rustup-init.sh -y
 
 
 
