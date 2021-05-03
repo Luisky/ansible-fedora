@@ -166,9 +166,9 @@
         name: com.jgraph.drawio.desktop
         state: present
     
-    - name: Install Mendeley
+    - name: Install Zotero
       flatpak:
-        name: com.elsevier.MendeleyDesktop
+        name: org.zotero.Zotero
         state: present
     
     - name: Install KeePassXC
